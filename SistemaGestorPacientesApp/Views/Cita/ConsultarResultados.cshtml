@@ -1,0 +1,43 @@
+﻿@model List<SistemaGestorPacientesApp.Core.Application.ViewModels.ResultadoLaboratorio.ResultadoLaboratorioViewModel>
+
+@{
+    ViewData["Title"] = "Resultados de Laboratorio";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-black">
+                    <h3 class="text-white">Resultados de Laboratorio</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Prueba</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var resultado in Model)
+                            {
+                                <tr>
+                                    <td>@resultado.NombrePrueba</td>
+                                    <td>@(resultado.EsCompletada ? "Completada" : "Pendiente")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <form asp-action="CompletarCita" method="post" class="mt-3">
+                        <input type="hidden" asp-for="@Model.First().CitaId" />
+                        <button type="submit" class="btn btn-outline-success">Completar Cita</button>
+                    </form>
+
+                    <a asp-action="Index" class="btn btn-warning mt-2">Cerrar Resultados</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,98 @@
+﻿@using SistemaGestorPacientesApp.Core.Application.ViewModels.Medico;
+@model SaveMedicoViewModel
+@{
+    bool editMode = Model.Id == 0 ? false : true;
+    ViewData["Title"] = "Guardar Médico";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <div class="card-header bg-dark text-light">
+                    <h4>@(editMode ? $"Editando al médico: {Model.Nombre} {Model.Apellido}" : "Creando un nuevo médico")</h4>
+                </div>
+                <div class="card-body">
+
+                    @if (Model.Consultorio == null || Model.Consultorio.Count == 0)
+                    {
+                        <h4>No hay consultorios disponibles</h4>
+                        <a asp-controller="Medico" asp-action="Index" class="btn btn-warning">Volver atrás</a>
+                    }
+                    else
+                    {
+                        <form method="post" asp-controller="Medico" asp-action="@(editMode ? "Edit" : "Create")" enctype="multipart/form-data">
+
+                            <div class="mb-3">
+                                <label asp-for="Nombre" class="form-label">Nombre: </label>
+                                <input type="text" asp-for="Nombre" class="form-control" />
+                                <span asp-validation-for="Nombre" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Apellido" class="form-label">Apellido: </label>
+                                <input type="text" asp-for="Apellido" class="form-control" />
+                                <span asp-validation-for="Apellido" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Correo" class="form-label">Correo: </label>
+                                <input type="email" asp-for="Correo" class="form-control" />
+                                <span asp-validation-for="Correo" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Telefono" class="form-label">Teléfono: </label>
+                                <input type="text" asp-for="Telefono" class="form-control" />
+                                <span asp-validation-for="Telefono" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Cedula" class="form-label">Cédula: </label>
+                                <input type="text" asp-for="Cedula" class="form-control" />
+                                <span asp-validation-for="Cedula" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="File" class="form-label">Foto:</label>
+                                @if (editMode)
+                                {
+                                    <input asp-for="File" class="form-control" />
+                                }
+                                else
+                                {
+                                    <input required asp-for="File" class="form-control" />
+                                }
+                                <span asp-validation-for="File" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="ConsultorioId" class="form-label">Consultorio: </label>
+                                <select asp-for="ConsultorioId" asp-items="@(new SelectList(Model.Consultorio, "Id", "Nombre"))" class="form-select">
+                                    <option value="0">Seleccione un consultorio</option>
+                                </select>
+                                <span asp-validation-for="ConsultorioId" class="text-danger"></span>
+                            </div>
+
+                            <input type="hidden" asp-for="Id" />
+
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <a asp-controller="Medico" asp-action="Index" class="btn btn-warning">Volver atrás</a>
+
+                        </form>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .card-img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-height: 200px;
+        object-fit: cover;
+    }
+</style>

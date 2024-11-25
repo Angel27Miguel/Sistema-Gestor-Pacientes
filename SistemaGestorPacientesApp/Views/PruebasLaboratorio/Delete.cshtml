@@ -1,0 +1,25 @@
+﻿@using SistemaGestorPacientesApp.Core.Application.ViewModels.PruebaLaboratorio
+@model SavePruebaLaboratorioViewModel
+@{
+    ViewData["Title"] = "Eliminar Pruebas de Laboratorio";
+}
+
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="card">
+            <div class="card-header bg-warning text-Blak text-center">
+                <h4>Esta seguro que desea eliminar al pruebas de laboratorio @Model.Nombre?</h4>
+            </div>
+            <div class="card-body text-center">
+                <form method="post" asp-controller="PruebasLaboratorio" asp-action="DeletePost">
+
+                    <input type="hidden" asp-for="Id" />
+
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <a asp-controller="PruebasLaboratorio" asp-action="Index" class="btn btn-primary">Volver atras</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

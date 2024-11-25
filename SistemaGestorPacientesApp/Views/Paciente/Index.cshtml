@@ -1,0 +1,70 @@
+﻿@model List<SistemaGestorPacientesApp.Core.Application.ViewModels.Paciente.PacienteViewModel>
+
+@{
+    ViewData["Title"] = "Lista de Pacientes";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-black">
+                    <h3 class="text-white">Mantenimiento de Pacientes</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-3 offset-9 text-end">
+                            <a asp-action="Create" class="btn btn-outline-success">Crear nuevo paciente</a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        @if (Model == null || Model.Count == 0)
+                        {
+                            <h2>No hay pacientes registrados.</h2>
+                        }
+                        else
+                        {
+                            @foreach (var paciente in Model)
+                            {
+                                <div class="col-12 col-md-4 mb-4">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <img src="@paciente.Foto" alt="Foto de @paciente.Nombre" class="img-fluid mb-3" style="max-height: 200px; object-fit: cover;" />
+
+                                            <h4>@paciente.Nombre @paciente.Apellido</h4>
+                                            <p class="card-text">
+                                                <strong>Teléfono:</strong> @paciente.Telefono<br />
+                                                <strong>Cédula:</strong> @paciente.Cedula<br />
+                                                <strong>Dirección:</strong> @paciente.Direccion<br />
+                                                <strong>Fecha de Nacimiento:</strong> @paciente.FechaNacimiento.ToShortDateString() <br />
+                                                <strong>¿Es Fumador?</strong> @(paciente.EsFumador ? "Sí" : "No")<br />
+                                                <strong>Alergias:</strong> @paciente.Alergias<br />
+                                                <strong>Consultorio:</strong> @paciente.NombreConsultorio
+                                            </p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="btn-group">
+                                                    <a asp-action="Edit" asp-route-id="@paciente.Id" class="btn btn-sm btn-outline-info">Editar</a>
+                                                    <a asp-action="Delete" asp-route-id="@paciente.Id" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .card-img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-height: 200px;
+        object-fit: cover;
+    }
+</style>

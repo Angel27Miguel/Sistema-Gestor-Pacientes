@@ -1,0 +1,33 @@
+﻿@model SistemaGestorPacientesApp.Core.Application.ViewModels.Cita.SaveCitaViewModel
+
+@{
+    ViewData["Title"] = "Consultar Pruebas de Laboratorio";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-black">
+                    <h3 class="text-white">Seleccionar Pruebas de Laboratorio</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="RealizarResultado" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="mb-3">
+                            <label for="Pruebas" class="form-label">Pruebas de Laboratorio</label>
+                            <select asp-for="PruebasSeleccionadas" required asp-items="@(new SelectList(Model.PruebasLaboratorio, "Id", "Nombre", Model.PruebasSeleccionadas))" multiple="multiple" class="form-select form-select-lg">
+                            </select>
+                        </div>
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-outline-success">Realizar Pruebas</button>
+                            <a asp-action="Index" class="btn btn-warning mt-2">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

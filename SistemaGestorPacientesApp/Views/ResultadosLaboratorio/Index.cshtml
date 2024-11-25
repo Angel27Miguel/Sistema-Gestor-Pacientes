@@ -1,0 +1,67 @@
+﻿@model List<SistemaGestorPacientesApp.Core.Application.ViewModels.ResultadoLaboratorio.ResultadoLaboratorioViewModel>
+
+@{
+    ViewData["Title"] = "Resultados de Laboratorio";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-black">
+                    <h3 class="text-white">Resultados de Laboratorio</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <form asp-action="SearchByCedula" method="post">
+                                <div class="input-group">
+                                    <input type="text" name="cedula" class="form-control" placeholder="Buscar por cédula" required />
+                                    <button type="submit" class="btn btn-outline-primary">Buscar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        @if (Model == null || !Model.Any())
+                        {
+                            <h2>No hay resultados de laboratorio</h2>
+                        }
+                        else
+                        {
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre Paciente</th>
+                                        <th>Apellido Paciente</th>
+                                        <th>Cédula Paciente</th>
+                                        <th>Prueba Laboratorio</th>
+                                        <th>Estado</th>
+                                        <th class="text-end">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var resultado in Model)
+                                    {
+                                        <tr>
+                                            <td>@resultado.NombrePaciente</td>
+                                            <td>@resultado.ApellidoPaciente</td>
+                                            <td>@resultado.CedulaPaciente</td>
+                                            <td>@resultado.NombrePrueba</td>
+                                            <td>@(resultado.EsCompletada ? "Completado" : "Pendiente")</td>
+                                            <td class="text-end">
+                                                <a asp-action="Edit" asp-route-id="@resultado.Id" class="btn btn-sm btn-outline-info">Reportar Resultado</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

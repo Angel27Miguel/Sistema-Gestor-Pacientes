@@ -1,0 +1,52 @@
+﻿@using SistemaGestorPacientesApp.Core.Application.ViewModels.PruebaLaboratorio
+@model SavePruebaLaboratorioViewModel
+@{
+    bool editMode = Model.Id == 0 ? false : true;
+    ViewData["Title"] = "Guardar Prueba de Laboratorio";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <div class="card-header bg-dark text-light">
+                    <h4>@(editMode ? $"Editando la prueba de laboratorio: {Model.Nombre}" : "Creando una nueva prueba de laboratorio")</h4>
+                </div>
+                <div class="card-body">
+
+                    @if (Model.Consultorios == null || Model.Consultorios.Count == 0)
+                    {
+                        <h4>No hay consultorios disponibles</h4>
+                        <a asp-controller="PruebasLaboratorio" asp-action="Index" class="btn btn-warning">Volver atrás</a>
+                    }
+                    else
+                    {
+                        <form method="post" asp-controller="PruebasLaboratorio" asp-action="@(editMode ? "Edit" : "Create")" enctype="multipart/form-data">
+
+                            <div class="mb-3">
+                                <label asp-for="Nombre" class="form-label">Nombre de la prueba: </label>
+                                <input type="text" asp-for="Nombre" class="form-control" />
+                                <span asp-validation-for="Nombre" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="ConsultorioId" class="form-label">Consultorio: </label>
+                                <select asp-for="ConsultorioId" asp-items="@(new SelectList(Model.Consultorios, "Id", "Nombre"))" class="form-select">
+                                    <option value="0">Seleccione un consultorio</option>
+                                </select>
+                                <span asp-validation-for="ConsultorioId" class="text-danger"></span>
+                            </div>
+
+                            <input type="hidden" asp-for="Id" />
+
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <a asp-controller="PruebasLaboratorio" asp-action="Index" class="btn btn-warning">Volver atrás</a>
+
+                        </form>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

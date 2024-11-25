@@ -1,0 +1,30 @@
+﻿@model SistemaGestorPacientesApp.Core.Application.ViewModels.ResultadoLaboratorio.SaveResultadoLaboratorioViewModel
+
+@{
+    ViewData["Title"] = "Reportar Resultado de Laboratorio";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-black">
+                    <h3 class="text-white">Reportar Resultado de Laboratorio</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-controller="ResultadosLaboratorio" asp-action="Edit">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="mb-3">
+                            <label asp-for="Resultado" class="form-label">Resultado de la Prueba: </label>
+                            <textarea asp-for="Resultado" class="form-control" rows="4" required></textarea>
+                        </div>
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-outline-success">Finalizar</button>
+                            <a asp-controller="ResultadosLaboratorio" asp-action="Index" class="btn btn-warning mt-2">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

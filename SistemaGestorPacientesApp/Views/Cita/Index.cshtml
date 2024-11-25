@@ -1,0 +1,74 @@
+﻿@model IEnumerable<SistemaGestorPacientesApp.Core.Application.ViewModels.Cita.CitaViewModel>
+@{
+    ViewData["Title"] = "Listado de Citas";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-black">
+                    <h3 class="text-white">Listado de Citas</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-3 offset-9 text-end">
+                            <a href="@Url.Action("Create", "Cita")" class="btn btn-outline-success">Crear Nueva Cita</a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        @if (Model == null || !Model.Any())
+                        {
+                            <h2>No hay citas</h2>
+                        }
+                        else
+                        {
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Paciente</th>
+                                        <th>Médico</th>
+                                        <th>Fecha</th>
+                                        <th>Hora</th>
+                                        <th>Causa</th>
+                                        <th>Estado</th>
+                                        <th class="text-end">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var cita in Model)
+                                    {
+                                        <tr>
+                                            <td>@cita.NombrePaciente</td>
+                                            <td>@cita.NombreMedico</td>
+                                            <td>@cita.FechaCita.ToShortDateString()</td>
+                                            <td>@cita.HoraCita</td>
+                                            <td>@cita.Causa</td>
+                                            <td>@cita.Estado</td>
+                                            <td class="text-end">
+                                                @if (cita.Estado == "PendienteConsulta")
+                                                {
+                                                    <a href="@Url.Action("RealizarResultado", "Cita", new { id = cita.Id })" class="btn btn-sm btn-outline-info">Consultar</a>
+                                                }
+                                                else if (cita.Estado == "PendienteResultados")
+                                                {
+                                                    <a href="@Url.Action("ConsultarResultados", "Cita", new { id = cita.Id })" class="btn btn-sm btn-outline-warning">Consultar Resultados</a>
+                                                }
+                                                else if (cita.Estado == "Completada")
+                                                {
+                                                    <a href="@Url.Action("VerResultados", "Cita", new { id = cita.Id })" class="btn btn-sm btn-outline-success">Ver Resultados</a>
+                                                }
+                                                <a asp-action="Delete" asp-route-id="@cita.Id" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

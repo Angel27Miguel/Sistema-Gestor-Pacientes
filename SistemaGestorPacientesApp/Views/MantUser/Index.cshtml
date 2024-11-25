@@ -1,0 +1,61 @@
+﻿@model List<SistemaGestorPacientesApp.Core.Application.ViewModels.User.UserViewModel>
+@{
+    ViewData["Title"] = "Mant.Usuarios";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-black">
+                    <h3 class="text-white">Mantenimiento de usuarios</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-3 offset-9 text-end">
+                            <a asp-controller="MantUser" asp-action="Create" class="btn btn-outline-success">Crear nuevo usuario</a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        @if (Model == null || Model.Count == 0)
+                        {
+                            <h2>No hay usuarios</h2>
+                        }
+                        else
+                        {
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Correo</th>
+                                        <th>Nombre de usuario</th>
+                                        <th>Tipo de usuario</th> 
+                                        <th class="text-end">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.Nombre</td>
+                                            <td>@item.Apellido</td>
+                                            <td>@item.Correo</td>
+                                            <td>@item.NombreUsuario</td>
+                                            <td>@(item.EsAdministrador ? "Administrador" : "Asistente")</td>
+                                            <td class="text-end">
+                                                <a asp-controller="MantUser" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Editar</a>
+                                                <a asp-controller="MantUser" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Borrar</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

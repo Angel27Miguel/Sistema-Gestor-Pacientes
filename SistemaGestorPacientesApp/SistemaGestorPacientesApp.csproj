@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SistemaGestorPacientesApp.Core.Application\SistemaGestorPacientesApp.Core.Application.csproj" />
+    <ProjectReference Include="..\SistemaGestorPacientesApp.Core.Domain\SistemaGestorPacientesApp.Core.Domain.csproj" />
+    <ProjectReference Include="..\SistemaGestorPacientesApp.Infrastucture.Persistence\SistemaGestorPacientesApp.Infrastucture.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\Paciente\" />
+  </ItemGroup>
+
+</Project>
